@@ -22,14 +22,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `lennot`
 
 CREATE TABLE `lennot` (
-  `LentoID` int(11) NOT NULL,
+  `LentoID` int(11) NOT NULL AUTO_INCREMENT,
   `LähtöKaupunki` varchar(255) NOT NULL,  -- From city
   `KohdeKaupunki` varchar(255) NOT NULL,  -- To city
-  `LentoPäivämäärä` date NOT NULL,  -- Flight Date
-  `Aikaväli` varchar(255) NOT NULL,  -- Time of Day (Morning, Day, Evening)
-  `Kone` varchar(20) NOT NULL,  -- Aircraft
-  `LipunHinta` decimal(10,2) NOT NULL,  -- Ticket Price
-  `VapaatPaikat` int(11) NOT NULL  -- Available Seats
+  `LentoPäivämäärä` date NOT NULL,        -- Flight Date
+  `Aikaväli` varchar(255) NOT NULL,       -- Time of Day
+  `Kone` varchar(20) NOT NULL,            -- Aircraft
+  `LipunHinta` decimal(10,2) NOT NULL,    -- Ticket Price
+  `VapaatPaikat` int(11) NOT NULL,        -- Available Seats
+  PRIMARY KEY (`LentoID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Data for table `lennot`
@@ -69,8 +70,8 @@ INSERT INTO `lennot` (`LentoID`, `LähtöKaupunki`, `KohdeKaupunki`, `LentoPäiv
 (32, 'Kööpenhamina', 'Billund', '2024-04-15', 'Aamu', 'Q400', '75.00', 32),
 (33, 'Kööpenhamina', 'Kööpenhamina', '2024-04-18', 'Ilta', 'A220-300', '82.00', 12),
 (34, 'Oslo', 'Trondheim', '2024-04-20', 'Ilta', 'A220-300', '81.00', 16),
-(35, 'Kööpenhamina', 'Kööpenhamina', '2024-04-25', 'Ilta', 'A220-300', '91.00', 33);
-(36, 'Helsinki', 'Rovaniemi', '2024-04-30', 'Päivä', 'Q400', '78.50', 60);
+(35, 'Kööpenhamina', 'Kööpenhamina', '2024-04-25', 'Ilta', 'A220-300', '91.00', 33),
+(36, 'Helsinki', 'Rovaniemi', '2024-04-30', 'Päivä', 'Q400', '78.50', 60),
 (37, 'Helsinki', 'Oulu', '2024-05-01', 'Aamu', 'Q400', '80.00', 20),
 (38, 'Oulu', 'Helsinki', '2024-05-02', 'Ilta', 'Q400', '85.00', 15),
 (39, 'Helsinki', 'Rovaniemi', '2024-05-03', 'Päivä', 'A220-300', '90.00', 50),
@@ -114,7 +115,7 @@ ALTER TABLE `lennot`
 
 -- AUTO_INCREMENT for table `lennot`
 ALTER TABLE `lennot`
-  MODIFY `LentoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `LentoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 COMMIT;
 
