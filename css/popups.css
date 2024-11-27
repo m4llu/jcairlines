@@ -1,0 +1,29 @@
+#passengerPopup ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    background-color: rgba(0, 0, 0, 0.386);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+#passengerPopup ul li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#passengerPopup ul li h4 {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+#passengerPopup ul li .passenger-control {
+    display: flex;
+    flex-direction: row;
+}
