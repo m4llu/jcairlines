@@ -18,6 +18,7 @@ button:hover {
 
 button.primary {
   font-weight: bold;
+  padding: 1rem 2rem;
 }
 
 button.secondary{

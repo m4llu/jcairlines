@@ -69,28 +69,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="departurePopup" class="popup">
-    <h2>Mistä?</h2>
-    <select id="departureSelect">
-        <option value="">Valitse lähtökaupunki</option>
-    </select>
-    <button class="primary metal" onclick="saveCitySelection('departureSelect', 'departure'); closePopup('departurePopup')">Jatka</button>
-</div>
+    <div id="departurePopup" class="popup">
+        <h2>Mistä?</h2>
+        <div>
+            <select id="departureSelect">
+                <option value="">Valitse lähtökaupunki</option>
+            </select>
+        </div>
+        <footer>
+            <button class="primary metal" onclick="saveCitySelection('departureSelect', 'departure'); closePopup('departurePopup')">Jatka</button>
+        </footer>
+    </div>
 
-<div id="destinationPopup" class="popup">
-    <h2>Mihin?</h2>
-    <select id="destinationSelect">
-        <option value="">Valitse kohdekaupunki</option>
-    </select>
-    <button class="primary pink" onclick="saveCitySelection('destinationSelect', 'destination'); closePopup('destinationPopup')">Jatka</button>
-</div>
+    <div id="destinationPopup" class="popup">
+        <h2>Mihin?</h2>
+        <div>
+            <select id="destinationSelect">
+                <option value="">Valitse kohdekaupunki</option>
+            </select>
+        </div>
+        <footer>
+            <button class="primary metal" onclick="saveCitySelection('destinationSelect', 'destination'); closePopup('destinationPopup')">Jatka</button>
+        </footer>
+    </div>
 
 
   <div id="datePopup" class="popup">
     <h2>Milloin?</h2>
-    <input type="date" id="date1" placeholder="Valitse lähtöpäivä">
-    <input type="date" id="date2" placeholder="Valitse paluupäivä">
-    <button onclick="saveDate('date1', 'date2', 'date')">Jatka</button>
+    <div>
+        <input type="date" id="date1" placeholder="Valitse lähtöpäivä">
+        <input type="date" id="date2" placeholder="Valitse paluupäivä">
+    </div>
+    <footer>
+        <button onclick="saveDate('date1', 'date2', 'date')">Jatka</button>
+    </footer>
   </div>
 
   <div id="passengerPopup" class="popup">
@@ -138,7 +150,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </li>
 
     </ul>
-    <button onclick="closePopup('passengerPopup')">Jatka</button>
+    <footer>
+        <button onclick="closePopup('passengerPopup')">Jatka</button>
+    </footer>
   </div>
 
     <div class="banner">
@@ -146,11 +160,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
     <nav data-aos="fade-down">
         <img src="logo.svg" alt="JC Airlines Logo">
-        <ul>
-            <li><a href="index.php">Etusivu</a></li>
-            <li><a href="search_flights.php">Etsi lentoja</a></li>
-            <li><a href="manage_booking.php">Hallitse varauksia</a></li>
-        </ul>
     </nav>
     <main>
         <div class="form-container" data-aos="fade-up">
