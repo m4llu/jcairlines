@@ -227,7 +227,7 @@ INSERT INTO `lennot` (`LentoID`, `LähtöKaupunki`, `KohdeKaupunki`, `LentoPäiv
 (189, 'Oslo', 'Trondheim', '2024-09-30', 'Päivä', 'A220-300', '840.00', 10),
 (190, 'Trondheim', 'Oslo', '2024-10-01', 'Aamu', 'Q400', '845.00', 5),
 (191, 'Helsinki', 'Oulu', '2024-10-02', 'Ilta', 'A220-300', '850.00', 30),
-(192, 'Oulu', 'Helsinki', '2024-10-03', 'Päivä', 'Q400', '855.00', 25),
+(192, 'Oulu', 'Helsinki', '2024-10-03', 'Päivä', 'Q400', '855.00', 25);
 
 
 -- Indexes for dumped tables
@@ -240,7 +240,7 @@ ALTER TABLE `lennot`
 
 -- AUTO_INCREMENT for table `lennot`
 ALTER TABLE `lennot`
-  MODIFY `LentoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `LentoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 
 COMMIT;
 
