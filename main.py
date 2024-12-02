@@ -15,7 +15,7 @@ def connect_to_db():
         )
 
 # List of cities for flight generation
-cities = ['Helsinki', 'Oulu', 'Rovaniemi', 'Stockholm', 'Oslo', 'Kööpenhamina', 'Bergen', 'Reykjavik', 'Malmö', 'Trondheim']
+cities = ['Helsinki', 'Oulu', 'Rovaniemi', 'Stockholm', 'Oslo', 'Kööpenhamina', 'Bergen', 'Reykjavik', 'Keflavik', 'Malmö', 'Trondheim']
 
 # Generate all city pairs (excluding same-city flights)
 def generate_city_pairs():
@@ -82,7 +82,7 @@ def add_flights_between_dates(start_date, end_date):
 # Run mass add of flights for a given date range
 def mass_add_flights():
     # Set your start and end dates for flight generation
-    start_date = datetime(2024, 10, 1)  # Example start date
+    start_date = datetime(2024, 10, 30)  # Example start date
     end_date = datetime(2024, 12, 30)  # Example end date
 
     # Add flights between the two dates
