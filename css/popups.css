@@ -23,12 +23,11 @@
   bottom: 0;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     gap: 1rem;
     width: 100%;
     padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.386);
     border-radius: 0.5rem;
 }
 

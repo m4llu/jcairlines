@@ -4,8 +4,9 @@ include 'php/db_connection.php';
 
 $flights = [];
 $error = '';
+$departure = $destination = $dates = $time = $passengers = ''; // Default values to avoid undefined variable notices
 
-// Debugging: Check if form is submitted
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve and validate form inputs
     $departure = $_POST['departure'] ?? null;
@@ -17,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!$departure || !$destination || !$dates || !$time || !$passengers) {
         $error = "Täytä kaikki kentät.";
     } else {
-        // Split dates
-        if (strpos($dates, ' - ') !== false) {
+        // Check if the dates field is valid
+        if (!empty($dates) && strpos($dates, ' - ') !== false) {
             list($start_date, $end_date) = explode(' - ', $dates);
         } else {
             $error = "Virheellinen aikaväli.";
@@ -48,6 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -101,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <input type="date" id="date2" placeholder="Valitse paluupäivä">
     </div>
     <footer>
-        <button onclick="saveDate('date1', 'date2', 'date')">Jatka</button>
+        <button class="primary metal" onclick="saveDate('date1', 'date2', 'date')">Jatka</button>
     </footer>
   </div>
 
@@ -151,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     </ul>
     <footer>
-        <button onclick="closePopup('passengerPopup')">Jatka</button>
+        <button class="primary metal" onclick="closePopup('passengerPopup')">Jatka</button>
     </footer>
   </div>
 
@@ -193,9 +196,62 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         <div class="content">
             <div class="results-container" data-aos="fade-in">
-                <?php if ($error): ?>
-                    <p class="error"><?php echo $error; ?></p>
-                <?php else: ?>
+                <?php if ($_SERVER["REQUEST_METHOD"] === "POST" && $error): ?>
+                    <p class="error"><?php echo htmlspecialchars($error); ?></p>
+                <?php elseif ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($flights)): ?>
+                    <!-- Display Flights -->
+                    <h3>Available Flights</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Departure</th>
+                                <th>Destination</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Plane</th>
+                                <th>Price (€)</th>
+                                <th>Seats</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <div class="results-container">
+    <?php foreach ($flights as $flight): ?>
+        <div class="flight-result">
+            <div class="header">
+                <h3><?php echo $flight['departure'] . ' ➔ ' . $flight['destination']; ?></h3>
+                <span><?php echo $flight['flight_date']; ?></span>
+            </div>
+            <div class="header">
+                <h3><?php echo $flight['time_of_day']; ?> Flight</h3>
+                <span><?php echo $flight['plane']; ?></span>
+            </div>
+            <div class="flight-classes">
+                <div class="flight-class economy">Economy</div>
+                <div class="flight-class business">Business</div>
+                <div class="flight-class vip">VIP</div>
+            </div>
+            <div class="info-section">
+                <ul>
+                    <li><span>Luggage:</span> <span>2 x Checked Bags, 1 x Handbag</span></li>
+                    <li><span>Seats Available:</span> <span><?php echo $flight['available_seats']; ?></span></li>
+                </ul>
+            </div>
+            <div class="perks">
+                <span>Lounge Access</span>
+                <span>Priority Boarding</span>
+                <span>In-flight Internet</span>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+                        </tbody>
+                    </table>
+                <?php elseif ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
+                    <p class="error">Hakuehtoja täyttäviä lentoja ei löytynyt.</p>
+                <?php endif; ?>
+
+                <?php if ($_SERVER["REQUEST_METHOD"] === "POST" && !$error): ?>
                     <!-- Display Search Parameters -->
                     <div class="search-parameters">
                         <h3>Hakuehdot</h3>
@@ -207,48 +263,63 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <li><strong>Passengers:</strong> <?php echo htmlspecialchars($passengers); ?></li>
                         </ul>
                     </div>
-                    
-                    <?php if (!empty($flights)): ?>
-                        <!-- Display Flight Results -->
-                        <h3>Available Flights</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Departure</th>
-                                    <th>Destination</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Plane</th>
-                                    <th>Price (€)</th>
-                                    <th>Seats</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($flights as $flight): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($flight['departure']); ?></td>
-                                        <td><?php echo htmlspecialchars($flight['destination']); ?></td>
-                                        <td><?php echo htmlspecialchars($flight['flight_date']); ?></td>
-                                        <td><?php echo htmlspecialchars($flight['time_of_day']); ?></td>
-                                        <td><?php echo htmlspecialchars($flight['plane']); ?></td>
-                                        <td><?php echo htmlspecialchars($flight['price']); ?></td>
-                                        <td><?php echo htmlspecialchars($flight['available_seats']); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <p class="error">Hakuehtoja täyttäviä lentoja ei löytynyt.</p>
-                    <?php endif; ?>
                 <?php endif; ?>
             </div>
 
-            <section data-aos="fade-in">
+
+            <section data-aos="slide-down">
                 <h2>Tervetuloa JC Airlines</h2>
                 <p>Me tarjoamme parhaat lennot ja palvelut matkustajillemme. Etsi lentoja, hallitse varauksia ja nauti matkasta kanssamme.</p>
             </section>
+            <hr data-aos="slide-right">
+            <section data-aos="zoom-out-up">
+                jgzczgzxgzx
+            </section>
         </div>
     </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+            <h4 class="footer-title">Yritys</h4>
+            <ul>
+                <li><a href="#">Ota yhteyttä</a></li>
+                <li><a href="#">Hallinnoi varaustasi</a></li>
+                <li><a href="#">Yhteydenottolomakkeet</a></li>
+                <li><a href="#">Usein kysytyt kysymykset</a></li>
+            </ul>
+            </div>
+            <div class="footer-column">
+            <h4 class="footer-title">Lisäpalvelut</h4>
+            <ul>
+                <li><a href="#">Lisäpalvelut matkallesi</a></li>
+                <li><a href="#">Autonvuokraukset</a></li>
+                <li><a href="#">Lentokenttäkuljetus</a></li>
+            </ul>
+            </div>
+            <div class="footer-column">
+            <h4 class="footer-title">Seuraa meitä</h4>
+            <ul>
+                <li><a href="#">Uutiskirje</a></li>
+                <li><a href="#">Mobiilisovellus</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+            </div>
+            <div class="footer-column">
+            <h4 class="footer-title">Käytännöt ja ehdot</h4>
+            <ul>
+                <li><a href="#">Käyttöehdot</a></li>
+                <li><a href="#">Tietosuojaseloste</a></li>
+                <li><a href="#">Muuta evästeasetuksia</a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="footer-logo">
+            <img src="logo.svg" alt="JC Airlines Logo">
+        </div>
+    </footer>
+
 
     <script>
         AOS.init({
