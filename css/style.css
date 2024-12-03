@@ -1,10 +1,11 @@
-/* Define color variables */
+/* style.css */
 :root {
   --color-white: #ffffff;
   --color-white-translucent: #ffffff22;
   --color-black: #000000;
   --color-black-light: #00000011;
   --color-black-hover: #00000022;
+  --color-black-translucent: #00000044;
   --color-accent: #DC3861;
   --color-background: #00000C;
   --color-form-background: #cfcfcf32;
@@ -19,36 +20,82 @@
   font-family: 'Hanken Grotesk', sans-serif;
 }
 
+html, body {
+  height: 100%; 
+  overflow-x: hidden; 
+  overflow-y: scroll; 
+  scroll-behavior: smooth;;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   color: var(--color-white);
   background-color: var(--color-background);
+  height: max-content;
+  scroll-snap-type: y mandatory;
 }
 
 main {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 100vh);
+  position: relative; /* Keep relative if needed for positioning child elements */
+  gap: 10rem;
+  min-height: 100vh; /* Ensure it covers the viewport height at least */
+}
+
+section {
+  height: 100vh;
+  position: relative;
+  /*margin-block: calc((100vh - var(--section-height)) / 2);*/
+  scroll-snap-align: start;
+  border: 2px solid var(--color-accent);
+}
+
+section.text-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  gap: 2rem;
+}
+
+section.text-image hr {
+  width: 100%;
+}
+
+section.text-image > div {
+  flex: 0.5;
+}
+
+section.text-image img{
+  width: 100%;
+  height: auto;
+}
+
+section.center-text {
   display: flex;
   flex-direction: column;
-  gap: 20vh;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 hr {
   margin-block: 1rem;
   border: 2px solid var(--color-accent);
-  width: 100%;
+  width: 70%;
 }
 
 .banner {
-  position: absolute;
+  scroll-snap-align: start;
+  position: relative;
   top: 0;
   left: 0;
-  height: min-content;
+  height: 100vh;
   width: 100%;
   z-index: 0;
 }
 
-.banner img {
+.banner .banner-image {
   width: 100%;
   height: auto;
 }
@@ -59,9 +106,11 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  width: 100%;
+  width: 100vw;
   z-index: 1000;
   box-sizing: border-box;
+  position: absolute;
+  top: 0;
 }
 
 nav img {
@@ -121,8 +170,9 @@ input:hover {
   cursor: pointer;
 }
 
-/* Footer Styling */
-.footer {
+main footer {
+  position: relative;
+  bottom: 0;
   background-color: #000;
   color: #fff;
   padding: 2rem;
@@ -134,7 +184,6 @@ input:hover {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 2rem;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -146,7 +195,7 @@ input:hover {
 .footer-title {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #bf0024; /* Red underline */
+  border-bottom: 2px solid var(--color-accent); /* Red underline */
   display: inline-block;
   padding-bottom: 0.3rem;
 }
@@ -168,7 +217,7 @@ input:hover {
 }
 
 .footer-column ul li a:hover {
-  color: #bf0024; /* Highlight on hover */
+  color: var(--color-accent); /* Highlight on hover */
 }
 
 .footer-logo {
@@ -185,6 +234,7 @@ input:hover {
 .form-container {
   position: absolute;
   bottom: 1rem;
+  margin: 1rem;
   gap: 1rem;
 }
 
@@ -208,9 +258,31 @@ form .input-container {
   min-width: 200px;
 }
 
-.content {
-  position: relative;
-  top: calc(100vh + 5rem);
+.search-parameters {
+  width: 100%;
+  background-color: var(--color-black-translucent);
+  padding: 1rem;
+}
+
+.search-parameters ul {
+  margin-block: 1rem;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-parameters ul li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.results-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
   padding: 1rem;
 }
 
@@ -297,7 +369,6 @@ form .input-container {
   margin-bottom: 5px;
 }
 
-/* Highlights (perks like lounge access) */
 .perks {
   margin-top: 15px;
 }
@@ -312,3 +383,5 @@ form .input-container {
   font-size: 12px;
   font-weight: bold;
 }
+
+
