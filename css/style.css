@@ -10,6 +10,8 @@
   --color-background: #00000C;
   --color-form-background: #cfcfcf32;
   --color-shadow: rgba(0, 0, 0, 0.1);
+  --gradient-accent: linear-gradient(90deg, rgba(220,56,97,1) 0%, rgba(229,142,65,1) 100%);
+  --gradient-accent-dark: linear-gradient(90deg, rgba(133,35,60,1) 0%, rgba(119,74,35,1) 100%);
 }
 
 /* Reset styles */
@@ -325,25 +327,29 @@ main footer {
   cursor: pointer;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
+  background: var(--color-form-background);
 }
 
 .flight-class.economy {
-  background: linear-gradient(45deg, #555, #777);
   color: white;
 }
 
 .flight-class.business {
-  background: linear-gradient(45deg, #ff5722, #ff8a50);
   color: white;
   margin: 0 10px;
 }
 
 .flight-class.vip {
-  background: linear-gradient(45deg, #800080, #e040fb);
   color: white;
 }
 
 .flight-class:hover {
+  transform: scale(1.025);
+  background: var(--gradient-accent-dark);
+}
+
+.flight-class.selected {
+  background: var(--gradient-accent);
   transform: scale(1.05);
 }
 
@@ -372,7 +378,7 @@ main footer {
 
 .perks span {
   display: inline-block;
-  background: #ff5722;
+  background: var(--gradient-accent);
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
@@ -408,6 +414,10 @@ form .input-container {
   box-shadow: 0 0 10px 0 var(--color-shadow);
   backdrop-filter: blur(5px);
   min-width: 200px;
+}
+
+.search-result-section {
+  z-index: 2;
 }
 
 @media screen and (min-width: 1200px) {

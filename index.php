@@ -236,7 +236,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </div>
 
-            <div>
+            <div class="search-result-section">
             <?php if ($_SERVER["REQUEST_METHOD"] === "POST" && !$error): ?>
                     <!-- Display Search Parameters -->
                     <div class="search-parameters">
