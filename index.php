@@ -58,13 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="JC Airlines - Etsi lentoja">
-    <meta name="keywords" content="JC Airlines, Lento, Matka">
+    <meta name="keywords" content="JC Airlines, Lento, Matka, Halvat, Lennot">
     <meta name="author" content="JC Airlines">
     <meta name="robots" content="index, follow">
     <meta name="revisit-after" content="7 days">
 
     <title>JC Airlines - Etsi Lentoja</title>
-    <link rel="icon" href="assets/favicon.svg" sizes="any" type="image/svg+xml">
+    <link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/buttons.css">
     <link rel="stylesheet" href="./css/popups.css">
