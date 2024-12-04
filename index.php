@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <header>
             <div>
                 <h2>Mistä?</h2>
-                <button class="close" onclick="closePopup('departurePopup')">X</button>
+                <button class="pink" onclick="closePopup('departurePopup')">X</button>
             </div>
             <div>
                 <p>Valitse kaupunki, josta matkasi alkaa.</p>
@@ -101,7 +101,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
 
     <div id="destinationPopup" class="popup">
-        <h2>Mihin?</h2>
+        <header>
+            <div>
+                <h2>Mihin?</h2>
+                <button class="pink" onclick="closePopup('destinationPopup')">X</button>
+            </div>
+            <div>
+                <p>Valitse kaupunki, johon matkasi päättyy.</p>
+            </div>
+        </header>
         <div>
             <select id="destinationSelect">
                 <option value="">Valitse kohdekaupunki</option>
@@ -114,7 +122,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
   <div id="datePopup" class="popup">
-    <h2>Milloin?</h2>
+        <header>
+            <div>
+                <h2>Milloin?</h2>
+                <button class="pink" onclick="closePopup('datePopup')">X</button>
+            </div>
+            <div>
+                <p>Valitse aikaväli, jolta haluat hakea matkoja.</p>
+            </div>
+        </header>
     <div>
         <input type="date" id="date1" placeholder="Valitse lähtöpäivä">
         <input type="date" id="date2" placeholder="Valitse paluupäivä">
@@ -125,16 +141,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </div>
 
   <div id="passengerPopup" class="popup">
-    <h2>Matkustajat?</h2>
-    <ul>
+        <header>
+            <div>
+                <h2>Matkustajat?</h2>
+                <button class="pink" onclick="closePopup('passengerPopup')">X</button>
+            </div>
+            <div>
+                <p>Valitse monta henkilöä haluat matkallesi.</p>
+            </div>
+        </header>
+        <div>
+        <ul>
     <li>
         <div>
             <h4>Aikuinen</h4>
         </div>
         <div class="passenger-control">
-            <button onclick="decreasePassengerCount('adultCount')">-</button>
+            <button onclick="decreasePassengerCount('adultCount')" class="square metal">-</button>
             <input type="number" id="adultCount" value="1" readonly>
-            <button onclick="increasePassengerCount('adultCount')">+</button>
+            <button onclick="increasePassengerCount('adultCount')" class="square metal">+</button>
         </div>
     </li>
     <li>
@@ -142,9 +167,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <h4>Lapsi 12-15</h4>
         </div>
         <div class="passenger-control">
-            <button onclick="decreasePassengerCount('child12to15Count')">-</button>
+            <button onclick="decreasePassengerCount('child12to15Count')" class="square metal">-</button>
             <input type="number" id="child12to15Count" value="0" readonly>
-            <button onclick="increasePassengerCount('child12to15Count')">+</button>
+            <button onclick="increasePassengerCount('child12to15Count')" class="square metal">+</button>
         </div>
     </li>
     <li>
@@ -152,9 +177,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <h4>Lapsi 2-11</h4>
         </div>
         <div class="passenger-control">
-            <button onclick="decreasePassengerCount('child2to11Count')">-</button>
+            <button onclick="decreasePassengerCount('child2to11Count')" class="square metal">-</button>
             <input type="number" id="child2to11Count" value="0" readonly>
-            <button onclick="increasePassengerCount('child2to11Count')">+</button>
+            <button onclick="increasePassengerCount('child2to11Count')" class="square metal">+</button>
         </div>
     </li>
     <li>
@@ -162,13 +187,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <h4>Sylilapsi 0-2</h4>
         </div>
         <div class="passenger-control">
-            <button onclick="decreasePassengerCount('infantCount')">-</button>
+            <button onclick="decreasePassengerCount('infantCount')" class="square metal">-</button>
             <input type="number" id="infantCount" value="0" readonly>
-            <button onclick="increasePassengerCount('infantCount')">+</button>
+            <button onclick="increasePassengerCount('infantCount')" class="square metal">+</button>
         </div>
     </li>
 
     </ul>
+        </div>
     <footer>
         <button class="primary metal" onclick="closePopup('passengerPopup')">Jatka</button>
     </footer>
@@ -205,7 +231,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <option value="Ilta">Iltalento</option>
                 </select>
             </div>
-            <button class="primary metal" type="submit" data-aos="fade-up-left" data-aos-duration="1500">Etsi lentoja</button>
+            <button class="primary metal" type="submit" data-aos="fade-left" data-aos-duration="1500" data-aos-once="true">Etsi lentoja</button>
             </form>
         </div>
     </div>
@@ -288,7 +314,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <p data-aos="zoom-out-up">Me tarjoamme parhaat lennot ja palvelut matkustajillemme. Etsi lentoja, hallitse varauksia ja nauti matkasta kanssamme.</p>
                 </div>
             </section>
-            <section data-aos="fade-right">
+            <section>
                 <div class="text-image">
                     <div>
                         <h2 data-aos="fade-down">Uudistamme F35 Lightning II koneidemme matkustamot</h2>
@@ -296,49 +322,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <p data-aos="zoom-out">
                             Uudistamme Euroopan-lennoillamme liikennöivien F35 Lightning II -koneiden matkustamot. Ensimmäisen uudistetulla matkustamolla lentävän koneen kyytiin pääset jo lokakuusta 2024 alkaen!
                         </p>
+                        <button class="round pink" data-aos="fade-up">Lue lisää</button>
                     </div>
                     <div>
-                        <img src="./assets/cockpit.png" alt="F35 Lightning II" data-aos="swipe-up">
+                        <img src="./assets/cockpit.png" alt="F35 Lightning II" data-aos="fade-left">
                     </div>
                 </div>
             </section>
         <footer class="footer">
         <div class="footer-container">
             <div class="footer-column">
-            <h4 class="footer-title">Yritys</h4>
-            <ul>
-                <li><a href="#">Ota yhteyttä</a></li>
-                <li><a href="#">Hallinnoi varaustasi</a></li>
-                <li><a href="#">Yhteydenottolomakkeet</a></li>
-                <li><a href="#">Usein kysytyt kysymykset</a></li>
-            </ul>
+                <h4 class="footer-title">Yritys</h4>
+                <ul>
+                    <li data-aos="fade-up" data-aos-duration="300"><a href="#">Ota yhteyttä</a></li>
+                    <li data-aos="fade-up" data-aos-duration="500"><a href="#">Hallinnoi varaustasi</a></li>
+                    <li data-aos="fade-up" data-aos-duration="700"><a href="#">Yhteydenottolomakkeet</a></li>
+                    <li data-aos="fade-up" data-aos-duration="900"><a href="#">Usein kysytyt kysymykset</a></li>
+                </ul>
             </div>
             <div class="footer-column">
-            <h4 class="footer-title">Lisäpalvelut</h4>
-            <ul>
-                <li><a href="#">Lisäpalvelut matkallesi</a></li>
-                <li><a href="#">Autonvuokraukset</a></li>
-                <li><a href="#">Lentokenttäkuljetus</a></li>
-            </ul>
+                <h4 class="footer-title">Lisäpalvelut</h4>
+                <ul>
+                    <li data-aos="fade-down" data-aos-duration="300"><a href="#">Lisäpalvelut matkallesi</a></li>
+                    <li data-aos="fade-down" data-aos-duration="500"><a href="#">Autonvuokraukset</a></li>
+                    <li data-aos="fade-down" data-aos-duration="700"><a href="#">Lentokenttäkuljetus</a></li>
+                </ul>
             </div>
             <div class="footer-column">
-            <h4 class="footer-title">Seuraa meitä</h4>
-            <ul>
-                <li><a href="#">Uutiskirje</a></li>
-                <li><a href="#">Mobiilisovellus</a></li>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
-            </ul>
+                <h4 class="footer-title">Seuraa meitä</h4>
+                <ul>
+                    <li data-aos="zoom-in" data-aos-duration="300"><a href="#">Uutiskirje</a></li>
+                    <li data-aos="zoom-in" data-aos-duration="500"><a href="#">Mobiilisovellus</a></li>
+                    <li data-aos="zoom-in" data-aos-duration="700"><a href="#">Facebook</a></li>
+                    <li data-aos="zoom-in" data-aos-duration="900"><a href="#">Instagram</a></li>
+                </ul>
             </div>
             <div class="footer-column">
-            <h4 class="footer-title">Käytännöt ja ehdot</h4>
-            <ul>
-                <li><a href="#">Käyttöehdot</a></li>
-                <li><a href="#">Tietosuojaseloste</a></li>
-                <li><a href="#">Muuta evästeasetuksia</a></li>
-            </ul>
+                <h4 class="footer-title">Käytännöt ja ehdot</h4>
+                <ul>
+                    <li data-aos="flip-left" data-aos-duration="300"><a href="#">Käyttöehdot</a></li>
+                    <li data-aos="flip-left" data-aos-duration="500"><a href="#">Tietosuojaseloste</a></li>
+                    <li data-aos="flip-left" data-aos-duration="700"><a href="#">Muuta evästeasetuksia</a></li>
+                </ul>
             </div>
         </div>
+
         <div class="footer-logo">
             <img src="./assets/logos/logo-white.svg" alt="JC Airlines Logo">
         </div>

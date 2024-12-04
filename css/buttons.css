@@ -19,17 +19,22 @@ button:hover {
 button.primary {
   font-weight: bold;
   padding: 1rem 2rem;
+  font-size: 2rem;
 }
 
 button.secondary{
   font-style: italic;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
 }
 
 button.round {
   border-radius: 1rem;
-  height: 2.5rem;
   border-radius: 2.5rem;
   min-width: 5rem;
+  font-size: 2rem;
+  padding: 0.5rem 2rem;
+  margin-block: 1rem;
 }
 
 button.metal {
@@ -46,4 +51,8 @@ button.pink {
 
 .button.pink:hover {
   filter: brightness(1.1);
+}
+
+button.square {
+  aspect-ratio: 1/1;
 }

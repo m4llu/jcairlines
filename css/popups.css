@@ -17,17 +17,19 @@
 .popup header {
   display: flex;
   flex-direction: column;
-  background-color: seagreen;
+  margin-bottom: 1rem;
 }
 
-.popup header > div {
+.popup header > div:first-child {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
-
 
 .popup.active {
   display: grid; /* Show popup when active */
   grid-template-rows: 50px 1fr 80px;
+  gap: 1rem;
 }
 
 .popup footer {
