@@ -23,24 +23,24 @@
 html, body {
   height: 100%; 
   overflow-x: hidden; 
-  overflow-y: scroll; 
-  scroll-behavior: smooth;;
 }
 
 body {
   margin: 0;
   color: var(--color-white);
   background-color: var(--color-background);
-  height: max-content;
-  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 main {
   display: grid;
   grid-template-rows: repeat(auto-fill, 100vh);
   position: relative; /* Keep relative if needed for positioning child elements */
-  gap: 10rem;
-  min-height: 100vh; /* Ensure it covers the viewport height at least */
+  height: 100vh; /* Ensure it covers the viewport height at least */
+  scroll-snap-type: y proximity;
+  overflow-y: scroll; 
+  overflow-x: hidden;
 }
 
 section {
@@ -48,31 +48,33 @@ section {
   position: relative;
   /*margin-block: calc((100vh - var(--section-height)) / 2);*/
   scroll-snap-align: start;
-  border: 2px solid var(--color-accent);
+  display: grid;
+  place-items: center;
 }
 
-section.text-image {
+section .text-image {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: start;
   gap: 2rem;
+  padding: 2rem;
 }
 
-section.text-image hr {
+section .text-image hr {
   width: 100%;
 }
 
-section.text-image > div {
+section .text-image > div {
   flex: 0.5;
 }
 
-section.text-image img{
+section .text-image img{
   width: 100%;
   height: auto;
 }
 
-section.center-text {
+section .center-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -177,6 +179,7 @@ main footer {
   color: #fff;
   padding: 2rem;
   font-family: 'Hanken Grotesk', sans-serif;
+  scroll-snap-align: end;
 }
 
 .footer-container {

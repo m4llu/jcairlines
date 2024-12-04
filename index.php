@@ -69,8 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="./css/buttons.css">
     <link rel="stylesheet" href="./css/popups.css">
     <!-- AOS -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.4/dist/aos.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -281,21 +281,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
 
 
-            <section data-aos="fade-up" class="center-text">
-                <h2>Tervetuloa matkustamaan <span><img src="./assets/logos/logo.svg" alt="JC Airlines" style="height: 30px; position: relative; top: 5px;"></span>:in kyydissä.</h2>
-            <hr data-aos="slide-right">
-                <p data-aos="zoom-out-up">Me tarjoamme parhaat lennot ja palvelut matkustajillemme. Etsi lentoja, hallitse varauksia ja nauti matkasta kanssamme.</p>
-            </section>
-            <section data-aos="fade-up" class="text-image">
-                <div>
-                    <h2>Uudistamme F35 Lightning II koneidemme matkustamot</h2>
-                    <hr data-aos="slide-right">
-                    <p data-aos="zoom-out-up">
-                        Uudistamme Euroopan-lennoillamme liikennöivien F35 Lightning II -koneiden matkustamot. Ensimmäisen uudistetulla matkustamolla lentävän koneen kyytiin pääset jo lokakuusta 2024 alkaen!
-                    </p>
+            <section data-aos="fade-in">
+                <div class="center-text">
+                    <h2 data-aos="fade-down">Tervetuloa matkustamaan <span><img src="./assets/logos/logo.svg" alt="JC Airlines" style="height: 30px; position: relative; top: 5px;"></span>:in kyydissä.</h2>
+                <hr data-aos="slide-right">
+                    <p data-aos="zoom-out-up">Me tarjoamme parhaat lennot ja palvelut matkustajillemme. Etsi lentoja, hallitse varauksia ja nauti matkasta kanssamme.</p>
                 </div>
-                <div>
-                    <img src="./assets/cockpit.png" alt="F35 Lightning II" data-aos="fade-up">
+            </section>
+            <section data-aos="fade-right">
+                <div class="text-image">
+                    <div>
+                        <h2 data-aos="fade-down">Uudistamme F35 Lightning II koneidemme matkustamot</h2>
+                        <hr data-aos="slide-right">
+                        <p data-aos="zoom-out">
+                            Uudistamme Euroopan-lennoillamme liikennöivien F35 Lightning II -koneiden matkustamot. Ensimmäisen uudistetulla matkustamolla lentävän koneen kyytiin pääset jo lokakuusta 2024 alkaen!
+                        </p>
+                    </div>
+                    <div>
+                        <img src="./assets/cockpit.png" alt="F35 Lightning II" data-aos="swipe-up">
+                    </div>
                 </div>
             </section>
         <footer class="footer">
@@ -340,13 +344,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </footer>
     </main>
-
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const scrollContainer = document.querySelector('main'); // The custom scrollable container
+
+        // Initialize AOS
         AOS.init({
-            duration: 1000, // Animation duration in ms
+            duration: 1000, // Animation duration
             easing: 'ease-in-out', // Easing function
+            delay: 100, // Delay between each element being animated
             once: false // Whether animations should happen only once
         });
+
+        // Trigger AOS refresh on scroll
+        if (scrollContainer) {
+            scrollContainer.addEventListener('scroll', function () {
+                AOS.refresh(); // Refresh AOS to track elements inside the custom container
+            });
+        }
+        });
+
     </script>
     <script src="./js/script.js"></script>
     <script src="./js/select.js"></script>
