@@ -32,8 +32,8 @@ button.round {
   border-radius: 1rem;
   border-radius: 2.5rem;
   min-width: 5rem;
-  font-size: 2rem;
-  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
   margin-block: 1rem;
 }
 
@@ -54,5 +54,20 @@ button.pink {
 }
 
 button.square {
-  aspect-ratio: 1/1;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+}
+
+button.select-flight {
+  background: linear-gradient(90deg, #000000, #1F1F1F, #000000);
+  border-radius: 0;
+  width: 100%;
+  padding-block: 1rem;
+}
+
+button.select-flight.selected {
+  background: var(--gradient-accent);
+  border: 1px solid #fff;
 }

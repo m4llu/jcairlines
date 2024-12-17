@@ -1,5 +1,3 @@
-
-
 // Helper function to set input values
 function saveInput(sourceId, targetId) {
   const sourceValue = document.getElementById(sourceId).value;
@@ -11,7 +9,6 @@ function saveInput(sourceId, targetId) {
 function saveCitySelection(selectId, inputId) {
   const selectedValue = document.getElementById(selectId).value;
   document.getElementById(inputId).value = selectedValue;
-  closePopup('departurePopup'); // Close popup after selection
 }
 
 // Save selected date range to the date input field
@@ -21,7 +18,7 @@ function saveDate(startId, endId, targetId) {
   if (startDate && endDate) {
       document.getElementById(targetId).value = `${startDate} - ${endDate}`;
   }
-  closePopup('datePopup');
+  next('3');
 }
 
 // Increment or decrement passenger count
@@ -50,16 +47,22 @@ function openPopup(popupId) {
 }
 
 // Close a popup
+function next(popupId) {
+  const popup = document.getElementById(popupId);
+  popup.classList.remove('active');
+  openPopup(parseInt(popupId) + 1)
+}
+
 function closePopup(popupId) {
   const popup = document.getElementById(popupId);
   popup.classList.remove('active');
 }
 
 // Attach event listeners to form fields for opening popups
-document.getElementById('departure').addEventListener('click', () => openPopup('departurePopup'));
-document.getElementById('destination').addEventListener('click', () => openPopup('destinationPopup'));
-document.getElementById('date').addEventListener('click', () => openPopup('datePopup'));
-document.getElementById('passengers').addEventListener('click', () => openPopup('passengerPopup'));
+document.getElementById('departure').addEventListener('click', () => openPopup('1'));
+document.getElementById('destination').addEventListener('click', () => openPopup('2'));
+document.getElementById('date').addEventListener('click', () => openPopup('3'));
+document.getElementById('passengers').addEventListener('click', () => openPopup('4'));
 
 // Attach event listeners for passenger increment and decrement
 document.querySelectorAll('.passenger-control button').forEach(button => {
@@ -67,5 +70,23 @@ document.querySelectorAll('.passenger-control button').forEach(button => {
       const isIncrement = event.target.textContent === '+';
       const inputId = event.target.parentElement.querySelector('input').id;
       updatePassengerCount(inputId, isIncrement);
+  });
+});
+
+// Implement the flight selection functionality
+document.addEventListener("DOMContentLoaded", function() {
+  // Add event listeners to all select flight buttons
+  document.querySelectorAll('.select-flight').forEach(button => {
+      button.addEventListener('click', function() {
+          const flightId = this.getAttribute('data-flight-id'); // Get the flight ID from the button
+
+          // Store the selected flight ID in the hidden input field
+          document.getElementById('selectedFlightId').value = flightId;
+
+          // Optionally, provide visual feedback to indicate the flight is selected
+          // For example, add a class to mark the selected button
+          document.querySelectorAll('.select-flight').forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+      });
   });
 });

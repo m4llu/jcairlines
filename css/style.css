@@ -15,7 +15,7 @@
 }
 
 /* Reset styles */
-* {
+body * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -83,12 +83,20 @@ section .text-image {
   padding: 2rem;
 }
 
+section .text-image div button {
+  width: max-content;
+}
+
 section .text-image hr {
   width: 100%;
 }
 
-section .text-image > div {
+section .text-image div {
   flex: 0.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 section .text-image img{
@@ -280,28 +288,33 @@ main footer {
 .results-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
 }
 
 /* General container for each flight result */
 .flight-result {
-  background: #141414; /* Dark background */
+  background: #141414;
   color: white;
-  border-radius: 10px;
-  margin: 20px auto;
+  min-width: 45%;
+  flex: 0.5;
   padding: 20px;
-  max-width: 600px;
   font-family: 'Hanken Grotesk', sans-serif;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
   position: relative;
+  border: 1px solid var(--color-white);
+}
+
+.flight-result .selected {
+  background: var(--gradient-accent);
 }
 
 /* Title area (flight time and details) */
 .flight-result .header {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 15px;
 }
@@ -311,11 +324,34 @@ main footer {
   margin: 0;
 }
 
+.flight-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.flight-route {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  height: 30px;
+  width: 100%;
+}
+
+.flight-route img {
+  height: 100%;
+}
+
 /* Styled buttons for classes */
 .flight-classes {
   display: flex;
-  justify-content: center;
-  margin: 20px 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.2rem;
 }
 
 .flight-class {
@@ -325,32 +361,8 @@ main footer {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
   transition: all 0.3s ease-in-out;
   background: var(--color-form-background);
-}
-
-.flight-class.economy {
-  color: white;
-}
-
-.flight-class.business {
-  color: white;
-  margin: 0 10px;
-}
-
-.flight-class.vip {
-  color: white;
-}
-
-.flight-class:hover {
-  transform: scale(1.025);
-  background: var(--gradient-accent-dark);
-}
-
-.flight-class.selected {
-  background: var(--gradient-accent);
-  transform: scale(1.05);
 }
 
 /* Info section for luggage and perks */
@@ -459,7 +471,7 @@ form .input-container {
   }
 
   section .text-image {
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 2rem;
   }
 }

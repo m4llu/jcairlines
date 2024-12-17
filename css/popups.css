@@ -20,7 +20,17 @@
   margin-bottom: 1rem;
 }
 
-.popup header > div:first-child {
+.popup header h2 {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.popup header p {
+  color: white;
+  font-size: 1rem;
+}
+
+.popup header div:first-child {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -44,7 +54,16 @@
     border-radius: 0.5rem;
 }
 
-#passengerPopup ul {
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.386);
+}
+
+.popup-content ul {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -56,20 +75,20 @@
     border-radius: 0.5rem;
 }
 
-#passengerPopup ul li {
+.popup-content ul li {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
 }
 
-#passengerPopup ul li h4 {
+.popup-content ul li h4 {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
 }
 
-#passengerPopup ul li .passenger-control {
+.popup-content ul li .passenger-control {
     display: flex;
     flex-direction: row;
 }

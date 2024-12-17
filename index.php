@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Query the database if no errors
     if (!$error) {
         $sql = "
-            SELECT LähtöKaupunki AS departure, KohdeKaupunki AS destination, LentoPäivämäärä AS flight_date, Aikaväli AS time_of_day, Kone AS plane, LipunHinta AS price, VapaatPaikat AS available_seats 
+            SELECT LentoID AS id, LähtöKaupunki AS departure, KohdeKaupunki AS destination, LentoPäivämäärä AS flight_date, Aikaväli AS time_of_day, Kone AS plane, LipunHinta AS price, VapaatPaikat AS available_seats, Lähtöaika AS time
             FROM lennot 
             WHERE LähtöKaupunki = '$departure'
             AND KohdeKaupunki = '$destination'
@@ -49,8 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -80,58 +78,58 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="departurePopup" class="popup">
+    <div id="1" class="popup">
         <header>
             <div>
                 <h2>Mistä?</h2>
-                <button class="pink" onclick="closePopup('departurePopup')">X</button>
+                <button class="pink square" onclick="closePopup('1')">X</button>
             </div>
             <div>
                 <p>Valitse kaupunki, josta matkasi alkaa.</p>
             </div>
         </header>
-        <div>
+        <div class="popup-content">
             <select id="departureSelect">
                 <option value="">Valitse lähtökaupunki</option>
             </select>
         </div>
         <footer>
-            <button class="primary metal" onclick="saveCitySelection('departureSelect', 'departure'); closePopup('departurePopup')">Jatka</button>
+            <button class="primary metal" onclick="saveCitySelection('departureSelect', 'departure'); next('1')">Jatka</button>
         </footer>
     </div>
 
-    <div id="destinationPopup" class="popup">
+    <div id="2" class="popup">
         <header>
             <div>
                 <h2>Mihin?</h2>
-                <button class="pink" onclick="closePopup('destinationPopup')">X</button>
+                <button class="pink square" onclick="closePopup('2')">X</button>
             </div>
             <div>
                 <p>Valitse kaupunki, johon matkasi päättyy.</p>
             </div>
         </header>
-        <div>
+        <div class="popup-content">
             <select id="destinationSelect">
                 <option value="">Valitse kohdekaupunki</option>
             </select>
         </div>
         <footer>
-            <button class="primary metal" onclick="saveCitySelection('destinationSelect', 'destination'); closePopup('destinationPopup')">Jatka</button>
+            <button class="primary metal" onclick="saveCitySelection('destinationSelect', 'destination'); next('2')">Jatka</button>
         </footer>
     </div>
 
 
-  <div id="datePopup" class="popup">
+  <div id="3" class="popup">
         <header>
             <div>
                 <h2>Milloin?</h2>
-                <button class="pink" onclick="closePopup('datePopup')">X</button>
+                <button class="pink square" onclick="closePopup('3')">X</button>
             </div>
             <div>
                 <p>Valitse aikaväli, jolta haluat hakea matkoja.</p>
             </div>
         </header>
-    <div>
+    <div class="popup-content">
         <input type="date" id="date1" placeholder="Valitse lähtöpäivä">
         <input type="date" id="date2" placeholder="Valitse paluupäivä">
     </div>
@@ -140,63 +138,62 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </footer>
   </div>
 
-  <div id="passengerPopup" class="popup">
+  <div id="4" class="popup">
         <header>
             <div>
                 <h2>Matkustajat?</h2>
-                <button class="pink" onclick="closePopup('passengerPopup')">X</button>
+                <button class="pink square" onclick="closePopup('4')">X</button>
             </div>
             <div>
                 <p>Valitse monta henkilöä haluat matkallesi.</p>
             </div>
         </header>
-        <div>
-        <ul>
-    <li>
-        <div>
-            <h4>Aikuinen</h4>
-        </div>
-        <div class="passenger-control">
-            <button onclick="decreasePassengerCount('adultCount')" class="square metal">-</button>
-            <input type="number" id="adultCount" value="1" readonly>
-            <button onclick="increasePassengerCount('adultCount')" class="square metal">+</button>
-        </div>
-    </li>
-    <li>
-        <div>
-            <h4>Lapsi 12-15</h4>
-        </div>
-        <div class="passenger-control">
-            <button onclick="decreasePassengerCount('child12to15Count')" class="square metal">-</button>
-            <input type="number" id="child12to15Count" value="0" readonly>
-            <button onclick="increasePassengerCount('child12to15Count')" class="square metal">+</button>
-        </div>
-    </li>
-    <li>
-        <div>
-            <h4>Lapsi 2-11</h4>
-        </div>
-        <div class="passenger-control">
-            <button onclick="decreasePassengerCount('child2to11Count')" class="square metal">-</button>
-            <input type="number" id="child2to11Count" value="0" readonly>
-            <button onclick="increasePassengerCount('child2to11Count')" class="square metal">+</button>
-        </div>
-    </li>
-    <li>
-        <div>
-            <h4>Sylilapsi 0-2</h4>
-        </div>
-        <div class="passenger-control">
-            <button onclick="decreasePassengerCount('infantCount')" class="square metal">-</button>
-            <input type="number" id="infantCount" value="0" readonly>
-            <button onclick="increasePassengerCount('infantCount')" class="square metal">+</button>
-        </div>
-    </li>
-
-    </ul>
+        <div class="popup-content">
+            <ul>
+                <li>
+                    <div>
+                        <h4>Aikuinen</h4>
+                    </div>
+                    <div class="passenger-control">
+                        <button onclick="decreasePassengerCount('adultCount')" class="square metal">-</button>
+                        <input type="number" id="adultCount" value="1" readonly>
+                        <button onclick="increasePassengerCount('adultCount')" class="square metal">+</button>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <h4>Lapsi 12-15</h4>
+                    </div>
+                    <div class="passenger-control">
+                        <button onclick="decreasePassengerCount('child12to15Count')" class="square metal">-</button>
+                        <input type="number" id="child12to15Count" value="0" readonly>
+                        <button onclick="increasePassengerCount('child12to15Count')" class="square metal">+</button>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <h4>Lapsi 2-11</h4>
+                    </div>
+                    <div class="passenger-control">
+                        <button onclick="decreasePassengerCount('child2to11Count')" class="square metal">-</button>
+                        <input type="number" id="child2to11Count" value="0" readonly>
+                        <button onclick="increasePassengerCount('child2to11Count')" class="square metal">+</button>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <h4>Sylilapsi 0-2</h4>
+                    </div>
+                    <div class="passenger-control">
+                        <button onclick="decreasePassengerCount('infantCount')" class="square metal">-</button>
+                        <input type="number" id="infantCount" value="0" readonly>
+                        <button onclick="increasePassengerCount('infantCount')" class="square metal">+</button>
+                    </div>
+                </li>
+            </ul>
         </div>
     <footer>
-        <button class="primary metal" onclick="closePopup('passengerPopup')">Jatka</button>
+        <button class="primary metal" onclick="closePopup(4)">Jatka</button>
     </footer>
   </div>
 <main>
@@ -267,35 +264,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <th>Seats</th>
                             </tr>
                         </thead>
-                        <tbody>
                         <div class="results-container">
                         <?php foreach ($flights as $flight): ?>
-                            <div class="flight-result">
-                                <div class="header">
-                                    <h3><?php echo $flight['departure'] . ' ➔ ' . $flight['destination']; ?></h3>
-                                    <span><?php echo $flight['flight_date']; ?></span>
+                            <div class="flight-result" data-flight-id="<?php echo $flight['id']; ?>" data-departure="<?php echo $flight['departure']; ?>" data-destination="<?php echo $flight['destination']; ?>" data-price="<?php echo $flight['price']; ?>">
+                        <div class="header">
+                            <div class="flight-info">
+                                <div class="flight-route">
+                                    <img src="./assets/icons/icon-departure.svg" alt="Departure">
+                                    <h3><?php echo date('H:i', strtotime($flight['time'])); ?> <?php echo $flight['departure']?></h3>
                                 </div>
-                                <div class="header">
-                                    <h3><?php echo $flight['time_of_day']; ?> Flight</h3>
-                                    <span><?php echo $flight['plane']; ?></span>
-                                </div>
-                                <div class="flight-classes">
-                                    <div class="flight-class economy">Economy</div>
-                                    <div class="flight-class business">Business</div>
-                                    <div class="flight-class vip">VIP</div>
-                                </div>
-                                <div class="info-section">
-                                    <ul>
-                                        <li><span>Luggage:</span> <span>2 x Checked Bags, 1 x Handbag</span></li>
-                                        <li><span>Seats Available:</span> <span><?php echo $flight['available_seats']; ?></span></li>
-                                    </ul>
-                                </div>
-                                <div class="perks">
-                                    <span>Lounge Access</span>
-                                    <span>Priority Boarding</span>
-                                    <span>In-flight Internet</span>
+                                <div class="flight-route">
+                                    <img src="./assets/icons/icon-destination.svg" alt="Departure">
+                                    <h3><?php echo date('H:i', strtotime($flight['time'])); ?> <?php echo $flight['destination']; ?></h3>
                                 </div>
                             </div>
+                            <span><?php echo $flight['flight_date']; ?></span>
+                        </div>
+                        <div class="flight-classes">
+                            <button type="button" class="select-flight" data-flight-id="<?php echo $flight['id']; ?>">Economy</button>
+                            <button type="button" class="select-flight" data-flight-id="<?php echo $flight['id']; ?>">Business</button>
+                        </div>
+                        <div class="info-section">
+                            <ul>
+                                <li><span>Luggage:</span> <span>2 x Checked Bags, 1 x Handbag</span></li>
+                                <li><span>Seats Available:</span> <span><?php echo $flight['available_seats']; ?></span></li>
+                            </ul>
+                        </div>
+                    </div>
+
                         <?php endforeach; ?>
                     </div>
 
@@ -304,6 +300,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php elseif ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
                     <p class="error">Hakuehtoja täyttäviä lentoja ei löytynyt.</p>
                 <?php endif; ?>
+                <form action="index.php" method="post">
+                    <!-- Existing input fields -->
+
+                    <!-- Hidden input to store selected flight ID -->
+                    <input type="hidden" id="selectedFlightId" name="selectedFlightId">
+
+                    <button class="primary metal" type="submit">Book Flight</button>
+                </form>
             </div>
 
 
