@@ -67,7 +67,12 @@ button.select-flight {
   padding-block: 1rem;
 }
 
-button.select-flight.selected {
+button.select-flight#businessButton.selected {
   background: var(--gradient-accent);
+  border: 1px solid #fff;
+}
+
+button.select-flight#economyButton.selected {
+  background: var(--gradient-accent-2);
   border: 1px solid #fff;
 }

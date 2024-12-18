@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,11 +73,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <div id="1" class="popup">
         <header>
@@ -94,7 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </select>
         </div>
         <footer>
-            <button class="primary metal" onclick="saveCitySelection('departureSelect', 'departure'); next('1')">Jatka</button>
+            <button class="primary metal"
+                onclick="saveCitySelection('departureSelect', 'departure'); next('1')">Jatka</button>
         </footer>
     </div>
 
@@ -114,12 +120,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </select>
         </div>
         <footer>
-            <button class="primary metal" onclick="saveCitySelection('destinationSelect', 'destination'); next('2')">Jatka</button>
+            <button class="primary metal"
+                onclick="saveCitySelection('destinationSelect', 'destination'); next('2')">Jatka</button>
         </footer>
     </div>
 
 
-  <div id="3" class="popup">
+    <div id="3" class="popup">
         <header>
             <div>
                 <h2>Milloin?</h2>
@@ -129,16 +136,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <p>Valitse aikaväli, jolta haluat hakea matkoja.</p>
             </div>
         </header>
-    <div class="popup-content">
-        <input type="date" id="date1" placeholder="Valitse lähtöpäivä">
-        <input type="date" id="date2" placeholder="Valitse paluupäivä">
+        <div class="popup-content">
+            <input type="date" id="date1" placeholder="Valitse lähtöpäivä">
+            <input type="date" id="date2" placeholder="Valitse paluupäivä">
+        </div>
+        <footer>
+            <button class="primary metal" onclick="saveDate('date1', 'date2', 'date')">Jatka</button>
+        </footer>
     </div>
-    <footer>
-        <button class="primary metal" onclick="saveDate('date1', 'date2', 'date')">Jatka</button>
-    </footer>
-  </div>
 
-  <div id="4" class="popup">
+    <div id="4" class="popup">
         <header>
             <div>
                 <h2>Matkustajat?</h2>
@@ -192,212 +199,216 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </li>
             </ul>
         </div>
-    <footer>
-        <button class="primary metal" onclick="closePopup(4)">Jatka</button>
-    </footer>
-  </div>
-<main>
-    <div class="banner">
-        <img src="./assets/background.jpeg" alt="JC Airlines Banner" class="banner-image">
-        <nav data-aos="zoom-up">
-            <img src="./assets/logos/logo.svg" alt="JC Airlines Logo">
-        </nav>
-        <div class="form-container" data-aos="fade" data-aos-duration="1000">
-           <form action="index.php" method="post">
-            <div class="input-container" data-aos="fade-down-right" data-aos-duration="800">
-                <label for="departure">Mistä?</label>
-                <input type="text" value="..." id="departure" name="departure" readonly></input>            
-            </div>
-            <div class="input-container" data-aos="fade-down" data-aos-duration="1100">
-                <label for="destination">Mihin?</label>
-                <input type="text" value="..." id="destination" name="destination" readonly></input>            
-            </div>
-            <div class="input-container" data-aos="fade-down-left" data-aos-duration="1200">
-                <label for="date">Milloin?</label>
-                <input type="text" value="..." id="date" name="dates" readonly></input>            
-            </div>
-            <div class="input-container" data-aos="fade-up-right" data-aos-duration="1300">
-                <label for="passengers">Matkustajat</label>
-                <input type="text" value="..." id="passengers" name="passengers" readonly></input>            
-            </div>
-            <div class="input-container" data-aos="fade-up" data-aos-duration="1400">
-                <label for="date">Ajankohta</label>
-                <select name="time" id="time">
-                    <option value="Aamu">Aamulento</option>
-                    <option value="Päivä">Päivälento</option>
-                    <option value="Ilta">Iltalento</option>
-                </select>
-            </div>
-            <button class="primary metal" type="submit" data-aos="fade-left" data-aos-duration="1500" data-aos-once="true">Etsi lentoja</button>
-            </form>
-        </div>
+        <footer>
+            <button class="primary metal" onclick="closePopup(4)">Jatka</button>
+        </footer>
     </div>
-
-            <div class="search-result-section">
-            <?php if ($_SERVER["REQUEST_METHOD"] === "POST" && !$error): ?>
-                    <!-- Display Search Parameters -->
-                    <div class="search-parameters">
-                        <h3>Hakuehdot</h3>
-                        <ul>
-                            <li><strong>Departure:</strong> <?php echo htmlspecialchars($departure); ?></li>
-                            <li><strong>Destination:</strong> <?php echo htmlspecialchars($destination); ?></li>
-                            <li><strong>Date Range:</strong> <?php echo htmlspecialchars($dates); ?></li>
-                            <li><strong>Time:</strong> <?php echo htmlspecialchars(ucfirst($time)); ?></li>
-                            <li><strong>Passengers:</strong> <?php echo htmlspecialchars($passengers); ?></li>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-                <?php if ($_SERVER["REQUEST_METHOD"] === "POST" && $error): ?>
-                    <p class="error"><?php echo htmlspecialchars($error); ?></p>
-                <?php elseif ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($flights)): ?>
-                    <!-- Display Flights -->
-                    <h3>Available Flights</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Departure</th>
-                                <th>Destination</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Plane</th>
-                                <th>Price (€)</th>
-                                <th>Seats</th>
-                            </tr>
-                        </thead>
-                        <div class="results-container">
-                        <?php foreach ($flights as $flight): ?>
-                            <div class="flight-result" data-flight-id="<?php echo $flight['id']; ?>" data-departure="<?php echo $flight['departure']; ?>" data-destination="<?php echo $flight['destination']; ?>" data-price="<?php echo $flight['price']; ?>">
-                        <div class="header">
-                            <div class="flight-info">
-                                <div class="flight-route">
-                                    <img src="./assets/icons/icon-departure.svg" alt="Departure">
-                                    <h3><?php echo date('H:i', strtotime($flight['time'])); ?> <?php echo $flight['departure']?></h3>
-                                </div>
-                                <div class="flight-route">
-                                    <img src="./assets/icons/icon-destination.svg" alt="Departure">
-                                    <h3><?php echo date('H:i', strtotime($flight['time'])); ?> <?php echo $flight['destination']; ?></h3>
-                                </div>
-                            </div>
-                            <span><?php echo $flight['flight_date']; ?></span>
-                        </div>
-                        <div class="flight-classes">
-                            <button type="button" class="select-flight" data-flight-id="<?php echo $flight['id']; ?>">Economy</button>
-                            <button type="button" class="select-flight" data-flight-id="<?php echo $flight['id']; ?>">Business</button>
-                        </div>
-                        <div class="info-section">
-                            <ul>
-                                <li><span>Luggage:</span> <span>2 x Checked Bags, 1 x Handbag</span></li>
-                                <li><span>Seats Available:</span> <span><?php echo $flight['available_seats']; ?></span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                        <?php endforeach; ?>
-                    </div>
-
-                        </tbody>
-                    </table>
-                <?php elseif ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
-                    <p class="error">Hakuehtoja täyttäviä lentoja ei löytynyt.</p>
-                <?php endif; ?>
+    <main>
+        <div class="banner">
+            <img src="./assets/background.jpeg" alt="JC Airlines Banner" class="banner-image">
+            <nav data-aos="zoom-up">
+                <img src="./assets/logos/logo.svg" alt="JC Airlines Logo">
+            </nav>
+            <div class="form-container" data-aos="fade" data-aos-duration="1000">
                 <form action="index.php" method="post">
-                    <!-- Existing input fields -->
-
-                    <!-- Hidden input to store selected flight ID -->
-                    <input type="hidden" id="selectedFlightId" name="selectedFlightId">
-
-                    <button class="primary metal" type="submit">Book Flight</button>
+                    <div class="input-container" data-aos="fade-down-right" data-aos-duration="800">
+                        <label for="departure">Mistä?</label>
+                        <input type="text" value="..." id="departure" name="departure" readonly></input>
+                    </div>
+                    <div class="input-container" data-aos="fade-down" data-aos-duration="1100">
+                        <label for="destination">Mihin?</label>
+                        <input type="text" value="..." id="destination" name="destination" readonly></input>
+                    </div>
+                    <div class="input-container" data-aos="fade-down-left" data-aos-duration="1200">
+                        <label for="date">Milloin?</label>
+                        <input type="text" value="..." id="date" name="dates" readonly></input>
+                    </div>
+                    <div class="input-container" data-aos="fade-up-right" data-aos-duration="1300">
+                        <label for="passengers">Matkustajat</label>
+                        <input type="text" value="..." id="passengers" name="passengers" readonly></input>
+                    </div>
+                    <div class="input-container" data-aos="fade-up" data-aos-duration="1400">
+                        <label for="date">Ajankohta</label>
+                        <select name="time" id="time">
+                            <option value="Aamu">Aamulento</option>
+                            <option value="Päivä">Päivälento</option>
+                            <option value="Ilta">Iltalento</option>
+                        </select>
+                    </div>
+                    <button class="primary metal" type="submit" data-aos="fade-left" data-aos-duration="1500"
+                        data-aos-once="true">Etsi lentoja</button>
                 </form>
             </div>
+        </div>
+
+        <div class="search-result-section">
+            <?php if ($_SERVER["REQUEST_METHOD"] === "POST" && !$error): ?>
+                <!-- Display Search Parameters -->
+                <div class="search-parameters">
+                    <h3>Hakuehdot</h3>
+                    <ul>
+                        <li><strong>Mistä:</strong> <?php echo htmlspecialchars($departure); ?></li>
+                        <li><strong>Mihin:</strong> <?php echo htmlspecialchars($destination); ?></li>
+                        <li><strong>Aikaväli:</strong> <?php echo htmlspecialchars($dates); ?></li>
+                        <li><strong>Kellonaika:</strong> <?php echo htmlspecialchars(ucfirst($time)); ?></li>
+                        <li><strong>Matkustajat:</strong> <?php echo htmlspecialchars($passengers); ?></li>
+                    </ul>
+                </div>
+            <?php endif; ?>
+            <?php if ($_SERVER["REQUEST_METHOD"] === "POST" && $error): ?>
+                <p class="error"><?php echo htmlspecialchars($error); ?></p>
+            <?php elseif ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($flights)): ?>
+                <table>
+                    <div class="results-container">
+                        <?php foreach ($flights as $flight): ?>
+                            <div class="flight-result" data-flight-id="<?php echo $flight['id']; ?>"
+                                data-departure="<?php echo $flight['departure']; ?>"
+                                data-destination="<?php echo $flight['destination']; ?>"
+                                data-price="<?php echo $flight['price']; ?>">
+                                <div class="header">
+                                    <div class="flight-info">
+                                        <div class="flight-route">
+                                            <img src="./assets/icons/icon-departure.svg" alt="Departure">
+                                            <h3><?php echo date('H:i', strtotime($flight['time'])); ?>
+                                                <?php echo $flight['departure'] ?></h3>
+                                        </div>
+                                        <div class="flight-route">
+                                            <img src="./assets/icons/icon-destination.svg" alt="Departure">
+                                            <h3><?php echo $flight['destination']; ?></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flight-classes">
+                                    <button type="button" class="select-flight" data-flight-class="economy" id="economyButton"
+                                        data-flight-id="<?php echo $flight['id']; ?>">Economy</button>
+                                    <button type="button" class="select-flight" data-flight-class="business" id="businessButton"
+                                        data-flight-id="<?php echo $flight['id']; ?>">Business</button>
+                                </div>
+                                <div class="info-section">
+                                    <ul>
+                                        <li><span>Päivämäärä:</span> <span><?php echo $flight['flight_date']; ?></span></li>
+                                        <li><span>Lentoaika:</span> <span><?php echo $flight['time_of_day']; ?></span>
+                                        <li><span>Kone:</span> <span><?php echo $flight['plane']; ?></span></li>
+                                        <li><span>Matkatavarat:</span> <span>2 x Kirjattua laukkua, 1 x Käsilaukku</span></li>
+                                        <li><span>Vapaita paikkoja:</span> <span><?php echo $flight['available_seats']; ?></span></li>
+                                    </ul>
+                                    <ul id="businessPerks" style="display:none;">
+                                        <li><span>Business edut:</span><span>Internet lennolla</span></li>
+                                        <li><span></span><span>Priority lähtöselvitys</span></li>
+                                        <li><span></span><span>Lounge etu</span></li>
+                                    </ul>
+                                </div>
+                                <div class="book-section">
+                                    <h4><?php echo $flight['price']; ?> €</h4>
+                                    <form action="php/book.php" method="post" style="display:inline;">
+                                        <input type="hidden" name="selectedFlightId" value="<?php echo $flight['id']; ?>" id="selectedFlightId">
+                                        <input type="hidden" name="selectedFlightClass" value="business" id="selectedFlightClass">
+                                        <button class="primary metal" type="submit">Jatka</button>
+                                    </form>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    </tbody>
+                </table>
+            <?php elseif ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
+                <p class="error">Hakuehtoja täyttäviä lentoja ei löytynyt.</p>
+            <?php endif; ?>
+        </div>
 
 
-            <section data-aos="fade-in">
-                <div class="center-text">
-                    <h2 data-aos="fade-down">Tervetuloa matkustamaan <span><img src="./assets/logos/logo.svg" alt="JC Airlines" style="height: 30px; position: relative; top: 5px;"></span>:in kyydissä.</h2>
+        <section data-aos="fade-in">
+            <div class="center-text">
+                <h2 data-aos="fade-down">Tervetuloa matkustamaan <span><img src="./assets/logos/logo.svg"
+                            alt="JC Airlines" style="height: 30px; position: relative; top: 5px;"></span>:in kyydissä.
+                </h2>
                 <hr data-aos="slide-right">
-                    <p data-aos="zoom-out-up">Me tarjoamme parhaat lennot ja palvelut matkustajillemme. Etsi lentoja, hallitse varauksia ja nauti matkasta kanssamme.</p>
+                <p data-aos="zoom-out-up">Me tarjoamme parhaat lennot ja palvelut matkustajillemme. Etsi lentoja,
+                    hallitse varauksia ja nauti matkasta kanssamme.</p>
+            </div>
+        </section>
+        <section>
+            <div class="text-image">
+                <div>
+                    <h2 data-aos="fade-down">Uudistamme F35 Lightning II koneidemme matkustamot</h2>
+                    <hr data-aos="slide-right">
+                    <p data-aos="zoom-out">
+                        Uudistamme Euroopan-lennoillamme liikennöivien F35 Lightning II -koneiden
+                        matkustamot. Ensimmäisen uudistetulla matkustamolla lentävän koneen kyytiin pääset
+                        jo lokakuusta 2024 alkaen!
+                    </p>
+                    <button class="round pink" data-aos="fade-up">Lue lisää</button>
                 </div>
-            </section>
-            <section>
-                <div class="text-image">
-                    <div>
-                        <h2 data-aos="fade-down">Uudistamme F35 Lightning II koneidemme matkustamot</h2>
-                        <hr data-aos="slide-right">
-                        <p data-aos="zoom-out">
-                            Uudistamme Euroopan-lennoillamme liikennöivien F35 Lightning II -koneiden matkustamot. Ensimmäisen uudistetulla matkustamolla lentävän koneen kyytiin pääset jo lokakuusta 2024 alkaen!
-                        </p>
-                        <button class="round pink" data-aos="fade-up">Lue lisää</button>
-                    </div>
-                    <div>
-                        <img src="./assets/cockpit.png" alt="F35 Lightning II" data-aos="fade-left">
-                    </div>
+                <div>
+                    <img src="./assets/cockpit.png" alt="F35 Lightning II" data-aos="fade-left">
                 </div>
-            </section>
+            </div>
+        </section>
         <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <h4 class="footer-title">Yritys</h4>
-                <ul>
-                    <li data-aos="fade-up" data-aos-duration="300"><a href="#">Ota yhteyttä</a></li>
-                    <li data-aos="fade-up" data-aos-duration="500"><a href="#">Hallinnoi varaustasi</a></li>
-                    <li data-aos="fade-up" data-aos-duration="700"><a href="#">Yhteydenottolomakkeet</a></li>
-                    <li data-aos="fade-up" data-aos-duration="900"><a href="#">Usein kysytyt kysymykset</a></li>
-                </ul>
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h4 class="footer-title">Yritys</h4>
+                    <ul>
+                        <li data-aos="fade-up" data-aos-duration="300"><a href="#">Ota yhteyttä</a></li>
+                        <li data-aos="fade-up" data-aos-duration="500"><a href="#">Hallinnoi varaustasi</a></li>
+                        <li data-aos="fade-up" data-aos-duration="700"><a href="#">Yhteydenottolomakkeet</a></li>
+                        <li data-aos="fade-up" data-aos-duration="900"><a href="#">Usein kysytyt kysymykset</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">Lisäpalvelut</h4>
+                    <ul>
+                        <li data-aos="fade-down" data-aos-duration="300"><a href="#">Lisäpalvelut matkallesi</a></li>
+                        <li data-aos="fade-down" data-aos-duration="500"><a href="#">Autonvuokraukset</a></li>
+                        <li data-aos="fade-down" data-aos-duration="700"><a href="#">Lentokenttäkuljetus</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">Seuraa meitä</h4>
+                    <ul>
+                        <li data-aos="zoom-in" data-aos-duration="300"><a href="#">Uutiskirje</a></li>
+                        <li data-aos="zoom-in" data-aos-duration="500"><a href="#">Mobiilisovellus</a></li>
+                        <li data-aos="zoom-in" data-aos-duration="700"><a href="#">Facebook</a></li>
+                        <li data-aos="zoom-in" data-aos-duration="900"><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">Käytännöt ja ehdot</h4>
+                    <ul>
+                        <li data-aos="flip-left" data-aos-duration="300"><a href="#">Käyttöehdot</a></li>
+                        <li data-aos="flip-left" data-aos-duration="500"><a href="#">Tietosuojaseloste</a></li>
+                        <li data-aos="flip-left" data-aos-duration="700"><a href="#">Muuta evästeasetuksia</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-column">
-                <h4 class="footer-title">Lisäpalvelut</h4>
-                <ul>
-                    <li data-aos="fade-down" data-aos-duration="300"><a href="#">Lisäpalvelut matkallesi</a></li>
-                    <li data-aos="fade-down" data-aos-duration="500"><a href="#">Autonvuokraukset</a></li>
-                    <li data-aos="fade-down" data-aos-duration="700"><a href="#">Lentokenttäkuljetus</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4 class="footer-title">Seuraa meitä</h4>
-                <ul>
-                    <li data-aos="zoom-in" data-aos-duration="300"><a href="#">Uutiskirje</a></li>
-                    <li data-aos="zoom-in" data-aos-duration="500"><a href="#">Mobiilisovellus</a></li>
-                    <li data-aos="zoom-in" data-aos-duration="700"><a href="#">Facebook</a></li>
-                    <li data-aos="zoom-in" data-aos-duration="900"><a href="#">Instagram</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4 class="footer-title">Käytännöt ja ehdot</h4>
-                <ul>
-                    <li data-aos="flip-left" data-aos-duration="300"><a href="#">Käyttöehdot</a></li>
-                    <li data-aos="flip-left" data-aos-duration="500"><a href="#">Tietosuojaseloste</a></li>
-                    <li data-aos="flip-left" data-aos-duration="700"><a href="#">Muuta evästeasetuksia</a></li>
-                </ul>
-            </div>
-        </div>
 
-        <div class="footer-logo">
-            <img src="./assets/logos/logo-white.svg" alt="JC Airlines Logo">
-        </div>
-    </footer>
+            <div class="footer-logo">
+                <img src="./assets/logos/logo-white.svg" alt="JC Airlines Logo">
+            </div>
+        </footer>
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-        const scrollContainer = document.querySelector('main'); // The custom scrollable container
+            const scrollContainer = document.querySelector('main'); // The custom scrollable container
 
-        // Initialize AOS
-        AOS.init({
-            duration: 1000, // Animation duration
-            easing: 'ease-in-out', // Easing function
-            delay: 100, // Delay between each element being animated
-            once: false // Whether animations should happen only once
-        });
-
-        // Trigger AOS refresh on scroll
-        if (scrollContainer) {
-            scrollContainer.addEventListener('scroll', function () {
-                AOS.refresh(); // Refresh AOS to track elements inside the custom container
+            // Initialize AOS
+            AOS.init({
+                duration: 1000, // Animation duration
+                easing: 'ease-in-out', // Easing function
+                delay: 100, // Delay between each element being animated
+                once: false // Whether animations should happen only once
             });
-        }
+
+            // Trigger AOS refresh on scroll
+            if (scrollContainer) {
+                scrollContainer.addEventListener('scroll', function () {
+                    AOS.refresh(); // Refresh AOS to track elements inside the custom container
+                });
+            }
         });
 
     </script>
     <script src="./js/script.js"></script>
-    <script src="./js/select.js"></script>
 </body>
+
 </html>
