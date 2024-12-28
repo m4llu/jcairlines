@@ -146,18 +146,43 @@ document.addEventListener("DOMContentLoaded", function() {
   // Add event listeners to all select flight buttons
 
 
-// Update the flight selection functionality to display the info section
-document.querySelectorAll('.select-flight').forEach(button => {
-  button.addEventListener('click', function() {
-    const flightId = this.getAttribute('data-flight-id');
-    const flightClass = this.getAttribute('data-flight-class');
-    const businessPerks = document.getElementById('businessPerks');
-    document.getElementById('selectedFlightId').value = flightId;
-    document.getElementById('selectedFlightClass').value = flightClass;
-    document.querySelectorAll('.flight-result').forEach(b => b.getAttribute('data-flight-id') === flightId ? b.classList.add('selected') : b.classList.remove('selected'));
-    document.querySelectorAll('.select-flight').forEach(b => b.classList.remove('selected'));
-    flightClass === 'business' && flightId === document.getElementById('selectedFlightId').value ? businessPerks.style.display = 'block' : businessPerks.style.display = 'none';
-    this.classList.add('selected');
+  document.querySelectorAll('.select-flight').forEach(button => {
+    button.addEventListener('click', function() {
+      const flightId = this.getAttribute('data-flight-id');
+      const flightClass = this.getAttribute('data-flight-class');
+      
+      // Get the parent flight result container
+      const flightResult = document.querySelector(`.flight-result[data-flight-id="${flightId}"]`);
+      const basePrice = parseFloat(flightResult.getAttribute('data-price'));
+
+      // Update selected flight fields
+      document.getElementById('selectedFlightId').value = flightId;
+      document.getElementById('selectedFlightClass').value = flightClass;
+  
+      // Highlight the selected flight
+      document.querySelectorAll('.flight-result').forEach(result => {
+        result.classList.toggle('selected', result === flightResult);
+      });
+  
+      // Remove selection from all buttons, then select the clicked one
+      document.querySelectorAll('.select-flight').forEach(btn => btn.classList.remove('selected'));
+      this.classList.add('selected');
+  
+      // Show Business Perks and Price only for this flight
+      flightResult.querySelectorAll('.businessPerks, .price').forEach(element => {
+        console.log(basePrice);
+        if (element.classList.contains('price')) {
+          // Update the price text based on the selected class
+          const updatedPrice = flightClass === 'business' ? basePrice + 100 : basePrice;
+          element.textContent = `${updatedPrice.toFixed(2)} €`;
+        }
+      
+        if (element.classList.contains('businessPerks')) {
+          // Toggle visibility of business perks based on the selected class
+          element.style.display = flightClass === 'business' ? 'block' : 'none';
+        }
+      });
+      
+    });
   });
-});
-});
+});  

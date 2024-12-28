@@ -89,11 +89,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h2>Mistä?</h2>
                 <button class="pink square" onclick="closePopup('1')">X</button>
             </div>
-            <div>
-                <p>Valitse kaupunki, josta matkasi alkaa.</p>
-            </div>
         </header>
         <div class="popup-content">
+        <p class="popup-instruction">Valitse kaupunki, josta matkasi alkaa.</p>
             <select id="departureSelect">
                 <option value="">Valitse lähtökaupunki</option>
             </select>
@@ -110,11 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h2>Mihin?</h2>
                 <button class="pink square" onclick="closePopup('2')">X</button>
             </div>
-            <div>
-                <p>Valitse kaupunki, johon matkasi päättyy.</p>
-            </div>
         </header>
         <div class="popup-content">
+        <p class="popup-instruction">Valitse kaupunki, johon matkasi päättyy.</p>
             <select id="destinationSelect">
                 <option value="">Valitse kohdekaupunki</option>
             </select>
@@ -132,11 +128,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h2>Milloin?</h2>
                 <button class="pink square" onclick="closePopup('3')">X</button>
             </div>
-            <div>
-                <p>Valitse aikaväli, jolta haluat hakea matkoja.</p>
-            </div>
         </header>
         <div class="popup-content">
+            <p class="popup-instruction">Valitse aikaväli, jolta haluat hakea matkoja.</p>
             <input type="date" id="date1" placeholder="Valitse lähtöpäivä">
             <input type="date" id="date2" placeholder="Valitse paluupäivä">
         </div>
@@ -151,11 +145,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h2>Matkustajat?</h2>
                 <button class="pink square" onclick="closePopup('4')">X</button>
             </div>
-            <div>
-                <p>Valitse monta henkilöä haluat matkallesi.</p>
-            </div>
         </header>
         <div class="popup-content">
+        <p class="popup-instruction">Valitse montako henkilöä haluat mukaan matkallesi.</p>
             <ul>
                 <li>
                     <div>
@@ -203,7 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button class="primary metal" onclick="closePopup(4)">Jatka</button>
         </footer>
     </div>
-    <main>
+    <main class="index">
         <div class="banner">
             <img src="./assets/background.jpeg" alt="JC Airlines Banner" class="banner-image">
             <nav data-aos="zoom-up">
@@ -292,14 +284,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                         <li><span>Matkatavarat:</span> <span>2 x Kirjattua laukkua, 1 x Käsilaukku</span></li>
                                         <li><span>Vapaita paikkoja:</span> <span><?php echo $flight['available_seats']; ?></span></li>
                                     </ul>
-                                    <ul id="businessPerks" style="display:none;">
+                                    <ul class="businessPerks" style="display:none;">
                                         <li><span>Business edut:</span><span>Internet lennolla</span></li>
                                         <li><span></span><span>Priority lähtöselvitys</span></li>
                                         <li><span></span><span>Lounge etu</span></li>
                                     </ul>
                                 </div>
                                 <div class="book-section">
-                                    <h4><?php echo $flight['price']; ?> €</h4>
+                                    <div style="display: flex; gap: 1rem;"><h4 class="price"><?php echo $flight['price']; ?> €</h4><h4 class="businessPrice" style="display: none;"> +100 €</h4></div>
                                     <form action="php/book.php" method="post" style="display:inline;">
                                         <input type="hidden" name="selectedFlightId" value="<?php echo $flight['id']; ?>" id="selectedFlightId">
                                         <input type="hidden" name="selectedFlightClass" value="business" id="selectedFlightClass">

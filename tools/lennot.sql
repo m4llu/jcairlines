@@ -34,6 +34,18 @@ CREATE TABLE `lennot` (
   PRIMARY KEY (`LentoID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `tilaukset` (
+  `TilausID` int(11) NOT NULL AUTO_INCREMENT,         -- Order ID
+  `LentoID` int(11) NOT NULL,                         -- Associated Flight ID
+  `AsiakasNimi` varchar(255) NOT NULL,                -- Customer Name
+  `AsiakasEmail` varchar(255) NOT NULL,               -- Customer Email
+  `PaikkojenMaara` int(11) NOT NULL,                  -- Number of Seats Booked
+  `TilausPäivämäärä` date NOT NULL,                   -- Order Date
+  `MaksuTila` enum('Maksettu', 'Ei maksettu') NOT NULL, -- Payment Status
+  PRIMARY KEY (`TilausID`),                           -- Primary Key
+  FOREIGN KEY (`LentoID`) REFERENCES `lennot`(`LentoID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Data for table `lennot` (with added Kellonaika column)
 
 INSERT INTO `lennot` (`LentoID`, `LähtöKaupunki`, `KohdeKaupunki`, `LentoPäivämäärä`, `Aikaväli`, `Kone`, `LipunHinta`, `VapaatPaikat`, `Lähtöaika`) VALUES

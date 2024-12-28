@@ -4,13 +4,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #0000006d;
+  background-color: #0000009f;
   border-radius: 0.5rem;
+  border: 1px solid var(--color-white-translucent);
   padding: 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   width: 45vw;
-  aspect-ratio: 4/3;
+  height: max-content;
   backdrop-filter: blur(2.5px);
 }
 
@@ -58,9 +59,19 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
   border-radius: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.386);
+  min-height: 20vh;
+  background-color: rgba(0, 0, 0, 0.150);
+}
+
+.popup-content fieldset,
+.popup-content input,
+.popup-content legend,
+.popup-content select,
+.popup-content textarea,
+.popup-content .inputbutton {
+  border: 1px solid var(--color-white);
 }
 
 .popup-content ul {
@@ -91,4 +102,10 @@
 .popup-content ul li .passenger-control {
     display: flex;
     flex-direction: row;
+}
+
+@media screen and (max-width: 768px) {
+  .popup {
+    width: 90vw;
+  }
 }

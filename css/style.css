@@ -3,7 +3,7 @@
   --color-white: #ffffff;
   --color-white-translucent: #ffffff22;
   --color-black: #000000;
-  --color-black-light: #00000011;
+  --color-black-light: #0000002d;
   --color-black-hover: #00000022;
   --color-black-translucent: #00000044;
   --color-accent: #DC3861;
@@ -56,7 +56,7 @@ p {
   font-size: 1.5rem;
 }
 
-main {
+main.index {
   display: grid;
   grid-template-rows: repeat(auto-fill, 100vh);
   position: relative; /* Keep relative if needed for positioning child elements */
@@ -147,6 +147,11 @@ nav {
   top: 0;
 }
 
+.planebanner nav img {
+  width: auto;
+  height: 50px;
+}
+
 nav img {
   width: auto;
   height: 50px;
@@ -187,6 +192,7 @@ textarea,
   min-width: max-content;
   text-align: start;
   font-family: 'comfortaa', sans-serif;
+  max-width: 300px;
 }
 
 input:focus,
@@ -461,10 +467,62 @@ form .input-container {
   box-shadow: 0 -10px 10px var(--color-black-translucent) ;
 }
 
-#businessPerks {
+.businessPerks {
   background: var(--gradient-accent);
   -webkit-background-clip: text;
   color: transparent;
+}
+
+main#book {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100vh;
+  grid-template-areas: "banner" 
+                       "booking";
+}
+
+.planebanner {
+  grid-area: banner;
+  max-height: 60vh;
+}
+
+.planebanner img {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+  object-position: center;
+  z-index: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.booking-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  grid-area: booking;
+  padding: 1rem;
+  background: linear-gradient(90deg, #000000, #1F1F1F, #000000);
+  box-shadow: 0 0 10px 0 var(--color-shadow);
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+
+.booking-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.booking-container form input {
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: none;
 }
 
 @media screen and (min-width: 1200px) {
