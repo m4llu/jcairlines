@@ -52,33 +52,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'], $_PO
         // Encrypt email address
         $encrypted_email = password_hash($customer_email, PASSWORD_BCRYPT);
 
-        // Reduce the available seats
-        $updateSeatsSql = "
-            UPDATE lennot 
-            SET VapaatPaikat = VapaatPaikat - $ticket_quantity 
-            WHERE LentoID = '$flight_id' AND VapaatPaikat >= $ticket_quantity
-        ";
-        if ($conn->query($updateSeatsSql) === TRUE) {
+        if ($flight['available_seats'] >= $ticket_quantity) {
+            // Reduce the available seats
+            $updateSeatsSql = "
+                UPDATE lennot 
+                SET VapaatPaikat = VapaatPaikat - $ticket_quantity 
+                WHERE LentoID = '$flight_id'
+            ";
+            if ($conn->query($updateSeatsSql) === TRUE) {
             // Insert booking into tilaukset table
             $insertBookingSql = "
                 INSERT INTO tilaukset (LentoID, AsiakasNimi, AsiakasEmail, PaikkojenMaara, TilausPäivämäärä, MaksuTila)
                 VALUES ('$flight_id', '$customer_name', '$encrypted_email', '$ticket_quantity', NOW(), 'Ei maksettu')
             ";
-            if ($conn->query($insertBookingSql) === TRUE) {
                 // Generate email content (example, not sent)
                 $emailContent = "
-                    Kiitos varauksestasi!
-                    Lentotiedot:
-                    - Kohde: {$flight['destination']}
-                    - Päivämäärä: {$flight['flight_date']}
-                    - Aika: {$flight['time_of_day']}
-                    - Liput: $ticket_quantity
-                    - Hinta: " . ($flight['price'] * $ticket_quantity) . " €
-                ";
-
-                echo "Varaus onnistui!";
-                // Optionally display the email content
-                echo nl2br(htmlspecialchars($emailContent));
+                <h2>Kiitos varauksestasi!</h2>
+                <p><strong>Lentotiedot:</strong></p>
+                <ul>
+                    <li><strong>Kohde:</strong> {$flight['destination']}</li>
+                    <li><strong>Päivämäärä:</strong> {$flight['flight_date']}</li>
+                    <li><strong>Aika:</strong> {$flight['time_of_day']}</li>
+                    <li><strong>Liput:</strong> $ticket_quantity</li>
+                    <li><strong>Kokonaishinta:</strong> " . ($flight['price'] * $ticket_quantity) . " €</li>
+                </ul>
+                <p>Pidä tämä sähköposti tallessa varauksesi vahvistukseksi.</p>
+            ";
+            // mail($customer_email, "Varausvahvistus", $emailContent, "Content-Type: text/html; charset=UTF-8");
+            echo "<div class='success-message'>";
+            echo "<p>Varaus onnistui!</p>";
+            echo "<div class='email-content'>" . $emailContent . "</div>";
+            echo "<button class=\"primary metal\"><a href='../index.php' class='button back-home'>Palaa etusivulle</a></button>";
+            echo "</div>";
             } else {
                 $error = "Varaus epäonnistui: " . $conn->error;
             }
@@ -122,21 +127,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'], $_PO
 </head>
 <body>
     <main id="book">
-        <div class="planebanner">
-            <img src="../assets/airplanes/a220_300.jpg" alt="JC Airlines Banner" class="banner-image">
-            <nav data-aos="zoom-up">
-                <img src="../assets/logos/logo.svg" alt="JC Airlines Logo">
-            </nav>
-            <p class="aircraft-name"><?php echo htmlspecialchars($flight['plane']); ?></p>
-        </div>
-
         <div class="booking-container">
           <div>
-            <?php if ($error): ?>
-                <p class="error"><?php echo htmlspecialchars($error); ?></p>
+          <?php if ($error): ?>
+            <div style="display: grid; place-items: center; height: 100vh;">
+                <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                    <p style="color: #DC3861; font-weight: bold;"><?php echo htmlspecialchars($error); ?></p>
+                    <button class="primary metal"><a href="javascript:history.back()" style="text-decoration: none; color: #FFF;">Palaa takaisin</a> </button>
+                </div>
+            </div>
             <?php elseif ($flight): ?>
                 <h2>Varaa Lento</h2>
                 <div class="flight-details">
+                    <p class="aircraft-name"><?php echo htmlspecialchars($flight['plane']); ?></p>
                     <p><strong>Lähtö:</strong> <?php echo htmlspecialchars($flight['departure']); ?></p>
                     <p><strong>Kohde:</strong> <?php echo htmlspecialchars($flight['destination']); ?></p>
                     <p><strong>Päivämäärä:</strong> <?php echo htmlspecialchars($flight['flight_date']); ?></p>
