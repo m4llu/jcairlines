@@ -168,6 +168,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['customer_name'], $_PO
                 </form>
             <?php endif; ?>
         </div>
+        <div class="planebanner">
+            <img src="../assets/wing-background.webp" alt="Lentokone" class="airplane">
+        </div>
     </main>
 </body>
 
