@@ -1,2 +1,3 @@
-# jcairlines
-browser-sync start --proxy “localhost:8080/jcairlines/” --files “*.php” “*.html” “css/*.css” “js/*.js” --browser “chrome”
+# Airline website (School assignment)
+HTML, PHP, CSS, JS
+Designed and programmed by me from scratch
