@@ -1,3 +1,4 @@
+# This script is for adding example flights to the database
 import mysql.connector
 import random
 import schedule
